@@ -1,10 +1,11 @@
-
+import "./home.css"
 
 function Home({image}) {
     return (
-        <div>
-            <img src={image} alt="Company logo"/>
-            <h1>Begin hier met het maken van jouw blog-applicatie!</h1>
+        <div className="wrapper">
+            <h1>Bij Blogventure geloven we in de kracht van woorden!*</h1>
+            <img src={image} alt="Company logo" className="logo"/>
+
         </div>
     );
 }
