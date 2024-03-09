@@ -1,4 +1,10 @@
-.overview {
+.overview-wrapper {
     background-color: var(--color-white) ;
     height: 100%;
+    padding: 20px;
+}
+
+.overview-title {
+    text-align: center;
+    padding: 20px;
 }
