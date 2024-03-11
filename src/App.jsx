@@ -8,9 +8,8 @@ import Overview from "./pages/overview/Overview.jsx";
 import BlogPost from "./pages/blogPost/BlogPost.jsx";
 import NewPost from "./pages/newPost/NewPost.jsx";
 import Footer from "./components/footer/Footer.jsx";
-
-
-
+import posts from "../src/constants/data.json"
+import NotFound from "./pages/notFound/NotFound.jsx";
 
 function App() {
     return (
@@ -18,9 +17,10 @@ function App() {
             <NavBar navLogo={logoTitle}/>
             <Routes>
                 <Route path="/" element={<Home image={logo}/>}/>
-                <Route path="/overview" element={<Overview/>}/>
-                <Route path="/blogpost/:id" element={<BlogPost/>}/>
+                <Route path="/overview" element={<Overview data={posts}/>}/>
+                <Route path="/blogpost/:id" element={<BlogPost data={posts}/>}/>
                 <Route path="/newblog" element={<NewPost/>}/>
+                <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
         </>

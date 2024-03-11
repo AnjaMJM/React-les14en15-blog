@@ -1,8 +1,11 @@
-import React from 'react';
+import { Link} from "react-router-dom";
 
-function NotFound(props) {
+function NotFound() {
     return (
-        <div></div>
+        <div>
+            <h2>Whoops! De pagina die je zocht lijkt niet te bestaan</h2>
+            <Link to="/">Keer terug naar de homepagina</Link>
+        </div>
     );
 }
 

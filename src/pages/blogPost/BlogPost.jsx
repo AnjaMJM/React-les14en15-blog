@@ -1,20 +1,26 @@
+// https://dev.to/stanlisberg/react-router-a-beginners-guide-to-useparams-hook-38pj
 import "./blogPost.css"
 import {useParams} from "react-router-dom";
-import posts from "../../constants/data.json"
 // import {toDutchDate} from "../../helpers/toDutchDate.js";
 
-function BlogPost() {
-    console.log(posts)
-    // https://dev.to/stanlisberg/react-router-a-beginners-guide-to-useparams-hook-38pj
+
+
+function BlogPost({data}) {
+
     const {id} = useParams()
     return (
         <div>
-            <p>{id}</p>
-            {/*<h2>{title}</h2>*/}
-            {/*<h3>{subtitle}</h3>*/}
-            {/*<p>Geschreven door {author} op {toDutchDate(posts[{id}].created)}</p>*/}
-            {/*<p>{content}</p>*/}
-
+            {data
+                .filter((blog) => blog.id.toString() === id) //De id in de data is een nummer, terwijl de url een string verwacht. Daarom omzetten naar string
+                .map(({title, subtitle, author,  content}, index) => (
+                    <div key={index}>
+                        <p>{id}</p>
+                        <h2>{title}</h2>
+                        <h3>{subtitle}</h3>
+                        <p>Geschreven door {author} op {/*{toDutchDate(created)}*/}</p>
+                        <p>{content}</p>
+                    </div>
+                ))}
         </div>
     );
 }
