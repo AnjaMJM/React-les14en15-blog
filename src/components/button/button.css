@@ -1,0 +1,7 @@
+.btn-basic {
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: 2px solid var(--color-primary);
+    width: max-content;
+}

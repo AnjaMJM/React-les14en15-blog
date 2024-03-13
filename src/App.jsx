@@ -14,15 +14,18 @@ import NotFound from "./pages/notFound/NotFound.jsx";
 function App() {
     return (
         <>
-            <NavBar navLogo={logoTitle}/>
-            <Routes>
-                <Route path="/" element={<Home image={logo}/>}/>
-                <Route path="/overview" element={<Overview data={posts}/>}/>
-                <Route path="/blogpost/:id" element={<BlogPost data={posts}/>}/>
-                <Route path="/newblog" element={<NewPost/>}/>
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-            <Footer />
+
+                <NavBar navLogo={logoTitle}/>
+                <main className="page-container">
+                <Routes>
+                    <Route path="/" element={<Home image={logo}/>}/>
+                    <Route path="/overview" element={<Overview data={posts}/>}/>
+                    <Route path="/blogpost/:id" element={<BlogPost data={posts}/>}/>
+                    <Route path="/newblog" element={<NewPost/>}/>
+                    <Route path="*" element={<NotFound/>}/>
+                </Routes>
+                </main>
+            <Footer/>
         </>
     )
 }

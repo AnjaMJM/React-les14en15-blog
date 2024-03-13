@@ -1,0 +1,38 @@
+.new-blog-wrapper {
+    min-width: 800px;
+}
+
+.new-blog-form {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin: 8px 0 4px 0;
+}
+
+input,
+textarea {
+    min-width: 700px;
+    margin: auto;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--color-tertiary);
+}
+
+input {
+    height: 2em;
+}
+
+fieldset {
+    border: 3px solid var(--color-primary);
+    border-radius: 15px;
+    padding: 0 30px;
+    margin: 16px;
+}
+
+Button {
+    margin: 10px;
+    align-self: center;
+}

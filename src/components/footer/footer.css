@@ -1,8 +1,9 @@
 .footer {
     background-color: var(--color-primary);
-    height: 5rem;
+    height: 5em;
     bottom: 0;
     width: 100vw;
+    overflow: auto;
 
     display: flex;
     align-items: center;
