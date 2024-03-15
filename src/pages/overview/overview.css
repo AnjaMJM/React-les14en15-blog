@@ -12,7 +12,6 @@
 .summary-wrapper {
     box-shadow: 6px 4px 10px 1px rgba(138,138,138,0.5);
     padding: 16px;
-    width: 50%;
     margin: 20px auto;
     border-radius: 25px;
     background-color: #FFFFFF;
@@ -28,7 +27,8 @@
 }
 
 .title {
-    color: var(--color-primary)
+    color: var(--color-primary);
+    text-decoration: none;
 }
 
 .writer {

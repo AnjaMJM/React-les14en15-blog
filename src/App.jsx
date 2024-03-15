@@ -8,10 +8,34 @@ import Overview from "./pages/overview/Overview.jsx";
 import BlogPost from "./pages/blogPost/BlogPost.jsx";
 import NewPost from "./pages/newPost/NewPost.jsx";
 import Footer from "./components/footer/Footer.jsx";
-import posts from "../src/constants/data.json"
+import ErrorMessage from "./components/errorMessage/ErrorMessage.jsx";
 import NotFound from "./pages/notFound/NotFound.jsx";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {redirect} from "react-router-dom";
 
 function App() {
+
+    const [allBlogs, setAllBlogs] = useState([])
+    const [error, setError] = useState(false)
+
+    useEffect(() => {
+        getAllBlogs()
+    }, []);
+    async function getAllBlogs() {
+        try {
+            const result = await axios.get("http://localhost:3000/posts");
+            setAllBlogs(result.data)
+            console.log(result.data)
+        } catch (err) {
+            setError(err)
+        }
+    }
+
+    if (error === true) {
+        return redirect("/error")
+    }
+
     return (
         <>
 
@@ -19,10 +43,11 @@ function App() {
                 <main className="page-container">
                 <Routes>
                     <Route path="/" element={<Home image={logo}/>}/>
-                    <Route path="/overview" element={<Overview data={posts}/>}/>
-                    <Route path="/blogpost/:id" element={<BlogPost data={posts}/>}/>
+                    <Route path="/overview" element={<Overview data={allBlogs}/>}/>
+                    <Route path="/blogpost/:id" element={<BlogPost data={allBlogs}/>}/>
                     <Route path="/newblog" element={<NewPost/>}/>
                     <Route path="*" element={<NotFound/>}/>
+                    <Route path="/error" element={<ErrorMessage />} />
                 </Routes>
                 </main>
             <Footer/>

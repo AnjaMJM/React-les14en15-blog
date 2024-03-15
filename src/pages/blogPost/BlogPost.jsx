@@ -2,10 +2,17 @@
 import "./blogPost.css"
 import {useParams} from "react-router-dom";
 import {toDutchDate} from "../../helpers/toDutchDate.js";
-
+import Button from "../../components/button/Button.jsx";
+import {useNavigate} from "react-router-dom";
 
 
 function BlogPost({data}) {
+
+    const navigate = useNavigate()
+
+    const handleClick = () => {
+        navigate(-1)
+    }
 
     const {id} = useParams()
     return (
@@ -19,6 +26,11 @@ function BlogPost({data}) {
                         <p>Geschreven door {author} op {toDutchDate(created)}</p>
                         {/*{console.log(toDutchDate(created))}*/}
                         <p>{content}</p>
+                        <Button
+                            btnType="button"
+                            handleClick={handleClick}
+                            btnName="Keer terug naar overzicht"
+                        />
                     </div>
                 ))}
         </div>

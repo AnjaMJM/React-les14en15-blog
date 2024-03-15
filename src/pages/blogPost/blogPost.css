@@ -1,5 +1,7 @@
 .blog-wrapper {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    max-width: 800px;
+    margin: 40px auto;
+    gap: 14px;
 }

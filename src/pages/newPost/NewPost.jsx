@@ -3,12 +3,11 @@ import "./newPost.css"
 import Button from "../../components/button/Button.jsx";
 import {createNewDateStamp} from "../../helpers/createNewDateStamp.js";
 import {calcReadTime} from "../../helpers/calcReadTime.js";
+import axios from "axios";
+import {redirect} from "react-router-dom";
 
 
 function NewPost() {
-    // const initialContent = ""
-    // const initialReadTime = calcReadTime(initialContent)
-
     //useState om de date in op te slaan. Hieronder is de useState opgezet om alle onderdelen van het formulier in te verzamelen
     let [newBlogState, setNewBlogState] = useState( {
         author: "",
@@ -36,8 +35,6 @@ function NewPost() {
             newReadTime = calcReadTime(e.target.value)
         }
 
-        // let newReadTime = calcReadTime(e.target.value)
-
         setNewBlogState( {
             //spread operator zorgt dat alle properties worden gekopieerd en dus meegenomen in het aangepaste formulier
             ...newBlogState,
@@ -50,16 +47,30 @@ function NewPost() {
     // const {author, title, subtitle, content, created, readTime, comments, shares} =newBlogState
 
     // De const hierboven deconstruct de verschillende onderdelen van 'newBlogState' en maakt het mogelijk andere functies en variabelen mee te geven in de 'handelSubmit'
-    function handleSubmit(e) {
+
+
+    async function handleSubmit(e){
         e.preventDefault(); // voorkomt dat default actie van submit-button (reset) niet wordt uitgevoerd
-        console.log( newBlogState)
+
+        try {
+            const newPost = await axios.post("http://localhost:3000/posts", newBlogState);
+            console.log('form data submitted succesfully:', newPost.data.id);
+
+            if (newPost.status === 201) {
+                return redirect(`/blogpost/${newPost.data.id}`)
+            }
+        } catch (err) {
+            console.error(err)
+        }
     }
+
+
 
     return (
         <>
             <fieldset className="new-blog-wrapper">
                 <legend><h2>Schrijf zelf een nieuw blog</h2></legend>
-                <form className="new-blog-form">
+                <form className="new-blog-form" onSubmit={handleSubmit}>
                 <label htmlFor="author">Naam:</label>
 
                     <input
@@ -91,6 +102,7 @@ function NewPost() {
                 <label htmlFor="content">Jouw verhaal:</label>
                     <textarea
                         id="content"
+                        required={true}
                         name="content"
                         minLength="100"
                         maxLength="3000"
@@ -99,7 +111,7 @@ function NewPost() {
                         onChange={handleChange}
                     />
 
-                    <Button btnType="submit" handleClick={handleSubmit} btnName="Plaats jou blog" />
+                    <Button btnType="submit" btnName="Plaats jou blog" />
                 </form>
             </fieldset>
         </>
