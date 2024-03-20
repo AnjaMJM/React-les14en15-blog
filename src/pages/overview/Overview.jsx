@@ -1,8 +1,16 @@
 import "./overview.css"
 import {Link} from "react-router-dom";
+// import {useEffect} from "react";
 
 
 function Overview({data}) {
+    console.log(data)
+// De useEffect was bedoeld als opzet om gelijk naar de onderste post te scrollen na het plaatsen van een nieuwe blog. De voorwaarde om deze actie alleen uit te voeren bij toegevoegde post is niet uitgewerkt
+    // useEffect(() => {
+    //     if(document.readyState === 'complete'){
+    //         window.scrollTo(0, document.body.scrollHeight);
+    //     }
+    // }, []);
 
     return (
         <div className="overview-wrapper">

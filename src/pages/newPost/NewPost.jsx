@@ -4,10 +4,12 @@ import Button from "../../components/button/Button.jsx";
 import {createNewDateStamp} from "../../helpers/createNewDateStamp.js";
 import {calcReadTime} from "../../helpers/calcReadTime.js";
 import axios from "axios";
-import {redirect} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
-function NewPost() {
+
+// eslint-disable-next-line no-empty-pattern
+function NewPost({}) {
     //useState om de date in op te slaan. Hieronder is de useState opgezet om alle onderdelen van het formulier in te verzamelen
     let [newBlogState, setNewBlogState] = useState( {
         author: "",
@@ -20,9 +22,10 @@ function NewPost() {
         shares: 0
     })
     //
+    const navigate = useNavigate()
 
 
-    // handleChange komt in inputveld als onChange-handler. 'e' staat voor 'event', ofwel veranderingen in het inputveld
+    // handleChange komt in inputveld als onChange-handler. 'E' staat voor 'event', ofwel veranderingen in het inputveld
     function handleChange(e) {
         console.log("event", e.target)
         const changedFieldName = e.target.name
@@ -54,13 +57,15 @@ function NewPost() {
 
         try {
             const newPost = await axios.post("http://localhost:3000/posts", newBlogState);
-            console.log('form data submitted succesfully:', newPost.data.id);
-
-            if (newPost.status === 201) {
-                return redirect(`/blogpost/${newPost.data.id}`)
+            if (newPost.status >= 200 && newPost.status < 300) {
+                console.log('form data submitted successfully:', newPost.data.id);
+                console.log(newPost)
+                navigate(`/succes`)
+            } else {
+                console.log('Server responded with an error:', newPost.status)
             }
         } catch (err) {
-            console.error(err)
+            console.error('An error occurred while submitting the form:', err)
         }
     }
 
@@ -104,8 +109,8 @@ function NewPost() {
                         id="content"
                         required={true}
                         name="content"
-                        minLength="100"
-                        maxLength="3000"
+                        minLength="50"
+                        maxLength="300"
                         rows="10"
                         value={newBlogState.content}
                         onChange={handleChange}

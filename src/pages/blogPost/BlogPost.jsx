@@ -6,25 +6,26 @@ import Button from "../../components/button/Button.jsx";
 import {useNavigate} from "react-router-dom";
 
 
+
 function BlogPost({data}) {
+    const {id} = useParams()
+
 
     const navigate = useNavigate()
-
-    const handleClick = () => {
+        const handleClick = () => {
         navigate(-1)
-    }
 
-    const {id} = useParams()
+    }
     return (
         <div>
             {data
                 .filter((blog) => blog.id.toString() === id) //De id in de data is een nummer, terwijl de url een string verwacht. Daarom omzetten naar string
-                .map(({title, subtitle, author, created, content}, index) => (
+                .map(({title, subtitle, author, created, content, readTime}, index) => (
                     <div key={index} className="blog-wrapper">
                         <h2>{title}</h2>
                         <h3>{subtitle}</h3>
                         <p>Geschreven door {author} op {toDutchDate(created)}</p>
-                        {/*{console.log(toDutchDate(created))}*/}
+                        <p className="read-time">Leestijd: {readTime} minuten</p>
                         <p>{content}</p>
                         <Button
                             btnType="button"

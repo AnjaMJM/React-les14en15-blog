@@ -1,7 +1,7 @@
 import './App.css'
 import logo from "./assets/logo-black.png"
 import logoTitle from "./assets/logo-medium.png"
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, useLocation} from "react-router-dom";
 import NavBar from "./components/navBar/NavBar.jsx";
 import Home from "./pages/home/Home.jsx"
 import Overview from "./pages/overview/Overview.jsx";
@@ -13,15 +13,17 @@ import NotFound from "./pages/notFound/NotFound.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {redirect} from "react-router-dom";
+import Succes from "./pages/succes/Succes.jsx";
 
 function App() {
-
     const [allBlogs, setAllBlogs] = useState([])
     const [error, setError] = useState(false)
 
+    const location = useLocation()
+
     useEffect(() => {
-        getAllBlogs()
-    }, []);
+       void getAllBlogs()
+    }, [location.pathname]);
     async function getAllBlogs() {
         try {
             const result = await axios.get("http://localhost:3000/posts");
@@ -35,7 +37,8 @@ function App() {
     if (error === true) {
         return redirect("/error")
     }
-
+    const lastID= allBlogs.length
+    console.log("test voor laatste id:", lastID)
     return (
         <>
 
@@ -48,6 +51,7 @@ function App() {
                     <Route path="/newblog" element={<NewPost/>}/>
                     <Route path="*" element={<NotFound/>}/>
                     <Route path="/error" element={<ErrorMessage />} />
+                    <Route path="/succes" element={<Succes newPostID={lastID} />} />
                 </Routes>
                 </main>
             <Footer/>
